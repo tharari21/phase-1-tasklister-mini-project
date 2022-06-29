@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
-
+  // Place to store our tasks
+  let tasksByPriority = {
+    red: [],
+    green: [],
+    yellow: [],
+  };
   // Adding user input to task list
 
   // Get form element
@@ -14,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let input = document.getElementById("new-task-description");
     // Getting the text value from the input tag
     let inputText = input.value;
+    input.value = "";
+
     // Create li element
     let li = document.createElement("li");
     // Add task from user input to our li tag
@@ -34,5 +41,27 @@ document.addEventListener("DOMContentLoaded", () => {
       // delete the li
       li.remove();
     });
+
+    // Add colored task functionality
+
+    // Grab select element
+    let select = document.querySelector("#color-selector");
+    // Grab selected option
+    let selectOptions = select.options;
+    let selectedColor = selectOptions[select.selectedIndex].value;
+    // Style the task based on color from dropdown
+    li.style.color = selectedColor;
+
+    // Implenting sorting functionality
+    // Check priority via color and place in tasks array accordingly
+    if (selectedColor === "green") {
+      tasksByPriority[2].push(inputText);
+    } else if (selectedColor === "red") {
+      tasksByPriority[0].push(inputText);
+    } else {
+      tasksByPriority[1].push(inputText);
+    }
+
+    // Display task list to user in that order
   });
 });
